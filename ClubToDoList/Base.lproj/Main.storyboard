@@ -37,6 +37,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="table" destination="nlM-KW-uY2" id="u8D-bl-gjF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ib3-Il-ZhE" sceneMemberID="firstResponder"/>
             </objects>
