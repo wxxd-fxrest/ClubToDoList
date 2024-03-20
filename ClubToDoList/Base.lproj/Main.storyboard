@@ -11,7 +11,7 @@
         <!--To!Do?-->
         <scene sceneID="4e5-B3-aB1">
             <objects>
-                <viewController id="76l-Ti-IQU" customClass="ViewController" customModule="SpartaToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="76l-Ti-IQU" customClass="ViewController" customModule="ClubToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vgd-i9-Igf">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -45,7 +45,7 @@
         <!--Add View Controller-->
         <scene sceneID="28r-XC-ddj">
             <objects>
-                <viewController storyboardIdentifier="AddViewController" id="z2g-K6-nxH" customClass="AddViewController" customModule="SpartaToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddViewController" id="z2g-K6-nxH" customClass="AddViewController" customModule="ClubToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CPj-tM-FDM">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -68,8 +68,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="KpX-id-smO">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="HSa-nq-Boo"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="HSa-nq-Boo">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="z2g-K6-nxH" id="q9f-KM-uuq"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="textfield" destination="XRi-c8-UeS" id="IfE-KT-kuJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gwp-FM-CpT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -78,7 +85,7 @@
         <!--Detail View Controller-->
         <scene sceneID="fOE-d4-Oqx">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="4Ek-Z9-yg0" customClass="DetailViewController" customModule="SpartaToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="4Ek-Z9-yg0" customClass="DetailViewController" customModule="ClubToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jo5-LZ-JfS">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
