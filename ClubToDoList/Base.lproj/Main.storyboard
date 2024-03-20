@@ -33,7 +33,7 @@
                     <navigationItem key="navigationItem" title="To!Do?" id="7oL-xL-XyT">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="zIB-DZ-0gC">
                             <connections>
-                                <segue destination="z2g-K6-nxH" kind="show" id="BBn-kg-LGP"/>
+                                <action selector="iconButtonTapped:" destination="76l-Ti-IQU" id="44U-rC-pfg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -54,7 +54,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XRi-c8-UeS">
-                                <rect key="frame" x="16" y="155" width="361" height="52"/>
+                                <rect key="frame" x="16" y="59" width="361" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="Idk-rJ-KR0"/>
                                 </constraints>
