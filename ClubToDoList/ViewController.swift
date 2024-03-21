@@ -4,7 +4,6 @@
 //
 //  Created by 밀가루 on 3/20/24.
 //
-
 import UIKit
 
 struct TodoItem {
@@ -12,13 +11,15 @@ struct TodoItem {
     var id: Int
     var title: String
     var isCompleted: Bool
+    var memo: String? // 메모를 저장할 속성 추가
     var saveDate: String // 날짜를 저장할 문자열 형식 추가
 
-    init(title: String, isCompleted: Bool = false, date: Date = Date()) {
+    init(title: String, isCompleted: Bool = false, date: Date = Date(), memo: String? = nil) {
         self.id = TodoItem.nextId
         self.title = title
         self.isCompleted = isCompleted
-        
+        self.memo = memo
+
         // 날짜를 "yyyy년 MM월 dd일" 형식으로 포맷팅하여 문자열로 저장
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy년 MM월 dd일"
@@ -28,18 +29,16 @@ struct TodoItem {
     }
 }
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DetailViewControllerDelegate {
 
     @IBOutlet var table: UITableView!
+    @IBOutlet weak var tableView: UITableView! // tableView 추가
 
     // MARK: - Properties
-    
-    // To-Do 데이터 배열
     var todos: [TodoItem] = [] // 변경된 부분: 옵셔널이 아닌 일반 배열로 변경
     var expandedSections = Set<Int>() // 펼쳐진 섹션을 추적하는 세트
 
     // MARK: - View Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -69,15 +68,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("현재 투두 리스트: \(todos)")
     }
 
+
     // MARK: - UITableViewDataSource
 
-    // 섹션 수 반환
+    // MARK: Number of Sections / 날짜별로 데이터를 묶어 표시
     func numberOfSections(in tableView: UITableView) -> Int {
         // todos 배열에서 고유한 날짜 수만큼 섹션을 반환하여 날짜별로 데이터를 묶어 표시
         return Set(todos.map { $0.saveDate }).count
     }
-    
-    // 각 섹션별로 행의 개수 설정
+
+    // MARK: Number of Rows in Section / 섹션이 펼쳐져 있는지 여부에 따라 다른 행의 개수를 반환
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 섹션이 펼쳐져 있는지 여부에 따라 다른 행의 개수를 반환
         if expandedSections.contains(section) {
@@ -87,14 +87,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return 0
         }
     }
-    
+
+    // MARK: Header Title for Section / 섹션의 이름을 날짜별로 데이터를 구분
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         // 섹션 제목으로 해당 섹션의 날짜를 반환하여 날짜별로 데이터를 구분하여 표시
         let date = Set(todos.map { $0.saveDate }).sorted()[section] // 고유한 날짜 중 정렬된 순서의 날짜 가져오기
         return date
     }
-    
-    
+
+    // MARK: Cell for Row at IndexPath / 특정 섹션과 특정 행에 해당하는 테이블 뷰 셀을 설정하고 반환 + UISwitch
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
@@ -128,9 +129,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return cell
     }
-
-    // MARK: - UITableViewDelegate
     
+    
+    // MARK: - Action / 스위치 동작 함수
+    @objc func didChangeSwitch(_ sender: UISwitch) {
+        print("현재 투두 리스트: \(todos)")
+        // 스위치를 소유한 셀의 인덱스를 얻어옴
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        
+        // 해당 indexPath의 todoItem 가져오기
+        let date = Set(todos.map { $0.saveDate }).sorted()[indexPath.section]
+        let todosOnDate = todos.filter { $0.saveDate == date }
+        var todoItem = todosOnDate[indexPath.row]
+        
+        // isCompleted 값을 토글
+        todoItem.isCompleted = sender.isOn
+        
+        // 변경된 todoItem을 배열에 다시 할당
+        if let index = todos.firstIndex(where: { $0.id == todoItem.id }) {
+            todos[index] = todoItem
+        }
+        
+        // 해당 셀을 다시 로드하여 변경 사항을 반영
+        table.reloadRows(at: [indexPath], with: .automatic)
+    }
+
+    // MARK: - UITableViewDelegate / ToDo 삭제 동작 함수
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let section = indexPath.section
@@ -155,10 +179,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     }
-    
 
-    // MARK: - Action
-    
+    // MARK: - Action / ToDo 추가 버튼
     @IBAction func iconButtonTapped(_ sender: UIButton) {
         // 아이콘 버튼을 누를 때 실행되는 메서드
         // UIAlertController 생성
@@ -195,25 +217,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         present(alertController, animated: true, completion: nil)
     }
 
-    // MARK: - UITableViewDelegate
-    
+    // MARK: - UITableViewDataSource / 헤더(섹션)에 화살표 아이콘, 라벨 추가,
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // 섹션 헤더 뷰 설정
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 52))
         
-        // Arrow 아이콘 추가
+        // 화살표 아이콘 추가
         let arrowImageView = UIImageView()
         arrowImageView.contentMode = .scaleAspectFit
         arrowImageView.image = expandedSections.contains(section) ? UIImage(systemName: "arrowtriangle.down.circle") : UIImage(systemName: "arrowtriangle.right.circle")
         arrowImageView.tintColor = expandedSections.contains(section) ? UIColor(named: "TrueColor") : UIColor(named: "FalseColor")
         arrowImageView.frame = CGRect(x: tableView.frame.width - 44, y: 0, width: 24, height: 24)
-        arrowImageView.tag = section // 섹션을 구별하기 위해 태그 설정
+        arrowImageView.tag = section // 섹션을 구별하기 위한 태그 설정
         headerView.addSubview(arrowImageView)
         
-        // Tap Gesture Recognizer 추가
+        // 헤더 뷰에 탭 제스처 추가
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(sectionHeaderTapped(_:)))
         headerView.addGestureRecognizer(tapGesture)
         headerView.tag = section
         
+        // 섹션 날짜 표시 레이블 설정
         let label = UILabel(frame: CGRect(x: 20, y: 0, width: tableView.frame.width - 80, height: 26))
         label.text = todos[section].saveDate
         label.font = UIFont.boldSystemFont(ofSize: 18) // 볼드체 폰트 설정
@@ -223,7 +246,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return headerView
     }
 
+    // MARK: - Action / 토글 함수
     @objc func sectionHeaderTapped(_ gestureRecognizer: UITapGestureRecognizer) {
+        // 섹션 헤더 탭 제스처 처리
         guard let section = gestureRecognizer.view?.tag else { return }
         if expandedSections.contains(section) {
             expandedSections.remove(section)
@@ -232,28 +257,49 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         table.reloadSections(IndexSet(integer: section), with: .automatic)
     }
-
-    // MARK: - Action
     
-    @objc func didChangeSwitch(_ sender: UISwitch) {
-        print("현재 투두 리스트: \(todos)")
-        // 스위치를 소유한 셀의 인덱스를 얻어옴
-        let indexPath = IndexPath(row: sender.tag, section: 0)
-        
-        // 해당 indexPath의 todoItem 가져오기
+    
+
+    // MARK: - UITableViewDelegate / 선택된 TodoItem과 해당 TodoItem의 날짜 정보를 DetailViewController에 전달
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 테이블 뷰 셀 선택 시 처리
         let date = Set(todos.map { $0.saveDate }).sorted()[indexPath.section]
         let todosOnDate = todos.filter { $0.saveDate == date }
-        var todoItem = todosOnDate[indexPath.row]
-        
-        // isCompleted 값을 토글
-        todoItem.isCompleted = sender.isOn
-        
-        // 변경된 todoItem을 배열에 다시 할당
-        if let index = todos.firstIndex(where: { $0.id == todoItem.id }) {
-            todos[index] = todoItem
+        let todoItem = todosOnDate[indexPath.row]
+
+        // DetailViewController 인스턴스화 및 이동
+        if let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController {
+            detailVC.todoItem = todoItem // 선택된 TodoItem 전달
+            detailVC.saveDate = date // 선택된 날짜 전달
+            navigationController?.pushViewController(detailVC, animated: true)
         }
-        
-        // 해당 셀을 다시 로드하여 변경 사항을 반영
-        table.reloadRows(at: [indexPath], with: .automatic)
     }
+
+
+        
+    // MARK: - Navigation / todoItem 전달
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetailSegue",
+           let detailVC = segue.destination as? DetailViewController,
+           let indexPath = tableView.indexPathForSelectedRow {
+            let todoItem = todos[indexPath.row]
+            detailVC.todoItem = todoItem
+            detailVC.delegate = self
+        }
+    }
+    
+    
+    
+    // MARK: - Delegate Method / 상세페이지 연결
+    func detailViewControllerDidSave(todoItem: TodoItem) {
+        // 수정된 TodoItem을 받아서 해당 TodoItem을 업데이트
+        if let index = todos.firstIndex(where: { $0.id == todoItem.id }) {
+            print("detailViewControllerDidSave\(todoItem)")
+            todos[index] = todoItem
+            // tableView 리로드
+            tableView.reloadData()
+        }
+    }
+
 }
+
