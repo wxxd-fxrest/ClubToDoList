@@ -41,6 +41,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="table" destination="nlM-KW-uY2" id="u8D-bl-gjF"/>
+                        <outlet property="tableView" destination="nlM-KW-uY2" id="ZD1-WG-qJO"/>
                         <segue destination="4Ek-Z9-yg0" kind="show" identifier="showDetailSegue" id="QLW-Af-x3a"/>
                     </connections>
                 </viewController>
@@ -97,21 +98,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="미완료 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaI-bR-JNu">
-                                <rect key="frame" x="40" y="104" width="50" height="24"/>
+                                <rect key="frame" x="56" y="124" width="60" height="30"/>
                                 <color key="backgroundColor" name="FalseColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="ekg-3n-5El"/>
-                                    <constraint firstAttribute="width" constant="50" id="jCM-9x-t2S"/>
+                                    <constraint firstAttribute="height" constant="30" id="ekg-3n-5El"/>
+                                    <constraint firstAttribute="width" constant="60" id="jCM-9x-t2S"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text.badge.checkmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JyT-bg-NC3">
-                                <rect key="frame" x="16" y="107" width="21" height="17.666666666666671"/>
+                                <rect key="frame" x="20" y="124.99999999999999" width="30" height="27.333333333333329"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="MOD-dL-Agr"/>
+                                    <constraint firstAttribute="width" constant="30" id="v6V-Uo-2dh"/>
+                                </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="알겠습니다. todoItem을 사용하지 않으므로, 그대신에 todoItem이 nil이 아닌지 " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="61x-2s-WnL">
-                                <rect key="frame" x="16" y="140" width="382" height="60"/>
+                                <rect key="frame" x="20" y="170" width="374" height="60"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="SPh-nR-91C"/>
@@ -121,24 +126,28 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="메모" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Bs-bZ-hmj">
-                                <rect key="frame" x="40" y="234" width="50" height="24"/>
-                                <color key="backgroundColor" name="FalseColor"/>
+                                <rect key="frame" x="56" y="284" width="60" height="30"/>
+                                <color key="backgroundColor" name="TrueColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="E7g-fr-Rg8"/>
-                                    <constraint firstAttribute="width" constant="50" id="lq3-JM-zGW"/>
+                                    <constraint firstAttribute="height" constant="30" id="E7g-fr-Rg8"/>
+                                    <constraint firstAttribute="width" constant="60" id="lq3-JM-zGW"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text.append" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="EWn-Mf-gLO">
-                                <rect key="frame" x="16" y="236.33333333333334" width="21" height="16.333333333333343"/>
+                                <rect key="frame" x="20" y="286.33333333333331" width="30" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="KBM-Xc-rb1"/>
+                                    <constraint firstAttribute="width" constant="30" id="jWx-Kq-dlS"/>
+                                </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5kE-03-ZWt">
-                                <rect key="frame" x="16" y="270" width="382" height="466"/>
+                                <rect key="frame" x="20" y="330" width="374" height="456.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="382" id="Jv2-1x-T8n"/>
+                                    <constraint firstAttribute="width" constant="374" id="chp-iP-Rec"/>
                                     <constraint firstAttribute="width" secondItem="5kE-03-ZWt" secondAttribute="height" multiplier="191:233" id="n8m-B0-jMl"/>
                                 </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -150,26 +159,26 @@
                         <viewLayoutGuide key="safeArea" id="d6p-jz-0ZM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="5kE-03-ZWt" firstAttribute="top" secondItem="2Bs-bZ-hmj" secondAttribute="bottom" constant="12" id="15n-q2-4W4"/>
-                            <constraint firstItem="2Bs-bZ-hmj" firstAttribute="top" secondItem="d6p-jz-0ZM" secondAttribute="top" constant="170" id="30j-4a-r9f"/>
-                            <constraint firstItem="5kE-03-ZWt" firstAttribute="leading" secondItem="d6p-jz-0ZM" secondAttribute="leading" constant="16" id="9HB-EU-ihU"/>
-                            <constraint firstItem="d6p-jz-0ZM" firstAttribute="trailing" secondItem="61x-2s-WnL" secondAttribute="trailing" constant="16" id="DlI-5l-Ztb"/>
-                            <constraint firstItem="JyT-bg-NC3" firstAttribute="top" secondItem="d6p-jz-0ZM" secondAttribute="top" constant="42" id="RlE-AB-nFb"/>
-                            <constraint firstItem="JyT-bg-NC3" firstAttribute="leading" secondItem="d6p-jz-0ZM" secondAttribute="leading" constant="16" id="TK4-db-W2A"/>
-                            <constraint firstItem="LaI-bR-JNu" firstAttribute="top" secondItem="d6p-jz-0ZM" secondAttribute="top" constant="40" id="Ulg-cE-Qqk"/>
-                            <constraint firstItem="LaI-bR-JNu" firstAttribute="leading" secondItem="d6p-jz-0ZM" secondAttribute="leading" constant="40" id="a3Q-BH-sK8"/>
-                            <constraint firstItem="61x-2s-WnL" firstAttribute="leading" secondItem="jo5-LZ-JfS" secondAttribute="leading" constant="16" id="aGi-dv-Zrf"/>
-                            <constraint firstItem="61x-2s-WnL" firstAttribute="top" secondItem="LaI-bR-JNu" secondAttribute="bottom" constant="12" id="bUL-xO-Tgt"/>
-                            <constraint firstItem="d6p-jz-0ZM" firstAttribute="trailing" secondItem="5kE-03-ZWt" secondAttribute="trailing" constant="16" id="i9W-h3-p2Q"/>
-                            <constraint firstItem="2Bs-bZ-hmj" firstAttribute="leading" secondItem="d6p-jz-0ZM" secondAttribute="leading" constant="40" id="x0G-iA-Q1E"/>
-                            <constraint firstItem="EWn-Mf-gLO" firstAttribute="leading" secondItem="d6p-jz-0ZM" secondAttribute="leading" constant="16" id="yEg-9s-jNV"/>
-                            <constraint firstItem="EWn-Mf-gLO" firstAttribute="top" secondItem="d6p-jz-0ZM" secondAttribute="top" constant="170" id="ypN-T4-ZE7"/>
+                            <constraint firstItem="5kE-03-ZWt" firstAttribute="top" secondItem="2Bs-bZ-hmj" secondAttribute="bottom" constant="16" id="15n-q2-4W4"/>
+                            <constraint firstItem="2Bs-bZ-hmj" firstAttribute="top" secondItem="d6p-jz-0ZM" secondAttribute="top" constant="220" id="30j-4a-r9f"/>
+                            <constraint firstItem="5kE-03-ZWt" firstAttribute="leading" secondItem="d6p-jz-0ZM" secondAttribute="leading" constant="20" id="9HB-EU-ihU"/>
+                            <constraint firstItem="d6p-jz-0ZM" firstAttribute="trailing" secondItem="61x-2s-WnL" secondAttribute="trailing" constant="20" id="DlI-5l-Ztb"/>
+                            <constraint firstItem="JyT-bg-NC3" firstAttribute="top" secondItem="d6p-jz-0ZM" secondAttribute="top" constant="60" id="RlE-AB-nFb"/>
+                            <constraint firstItem="JyT-bg-NC3" firstAttribute="leading" secondItem="d6p-jz-0ZM" secondAttribute="leading" constant="20" id="TK4-db-W2A"/>
+                            <constraint firstItem="LaI-bR-JNu" firstAttribute="top" secondItem="d6p-jz-0ZM" secondAttribute="top" constant="60" id="Ulg-cE-Qqk"/>
+                            <constraint firstItem="LaI-bR-JNu" firstAttribute="leading" secondItem="d6p-jz-0ZM" secondAttribute="leading" constant="56" id="a3Q-BH-sK8"/>
+                            <constraint firstItem="61x-2s-WnL" firstAttribute="leading" secondItem="jo5-LZ-JfS" secondAttribute="leading" constant="20" id="aGi-dv-Zrf"/>
+                            <constraint firstItem="61x-2s-WnL" firstAttribute="top" secondItem="LaI-bR-JNu" secondAttribute="bottom" constant="16" id="bUL-xO-Tgt"/>
+                            <constraint firstItem="d6p-jz-0ZM" firstAttribute="trailing" secondItem="5kE-03-ZWt" secondAttribute="trailing" constant="20" id="i9W-h3-p2Q"/>
+                            <constraint firstItem="2Bs-bZ-hmj" firstAttribute="leading" secondItem="d6p-jz-0ZM" secondAttribute="leading" constant="56" id="x0G-iA-Q1E"/>
+                            <constraint firstItem="EWn-Mf-gLO" firstAttribute="leading" secondItem="d6p-jz-0ZM" secondAttribute="leading" constant="20" id="yEg-9s-jNV"/>
+                            <constraint firstItem="EWn-Mf-gLO" firstAttribute="top" secondItem="d6p-jz-0ZM" secondAttribute="top" constant="220" id="ypN-T4-ZE7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="2024.04.29" id="ujZ-lc-PXu">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="GaW-GG-BFG">
                             <connections>
-                                <action selector="saveButtonTapped:" destination="4Ek-Z9-yg0" id="Fj7-al-RgN"/>
+                                <action selector="saveButtonTapped:" destination="4Ek-Z9-yg0" id="hN3-XE-AxQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -207,6 +216,9 @@
         <image name="text.badge.checkmark" catalog="system" width="128" height="107"/>
         <namedColor name="FalseColor">
             <color red="0.63099998235702515" green="0.73299998044967651" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="TrueColor">
+            <color red="0.27500000596046448" green="0.46299999952316284" blue="0.93300002813339233" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
