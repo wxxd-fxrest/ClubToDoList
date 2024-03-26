@@ -35,38 +35,47 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     let placeholderText = "메모를 입력하세요..." // 플레이스홀더 텍스트
 
     // MARK: - View Life Cycle
-    
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // TodoItem 존재 여부 확인 및 화면 설정
         if let todoItem = todoItem {
             // TodoItem이 전달O
-            title = "Todo 상세 정보"
+            title = todoItem.saveDate
             textView.text = todoItem.title
-            memoView.text = todoItem.memo
+            // MemoView의 플레이스홀더 설정을 텍스트가 없을 때만 적용하도록 수정
+            if let memo = todoItem.memo, !memo.isEmpty {
+                memoView.text = memo
+                memoView.textColor = .black
+            } else {
+                memoView.text = placeholderText
+                memoView.textColor = UIColor.lightGray
+            }
             completionStatusLabel.text = todoItem.isCompleted ? "완료됨" : "미완료"
             completionStatusLabel.backgroundColor = todoItem.isCompleted ? UIColor(named: "TrueColor") : UIColor(named: "FalseColor")
             completionStatusLabel.textColor = todoItem.isCompleted ? .white : .black
             
+            print("디테일 페이지로 이동했을 때 투두 아이템: \(todoItem)")
+
         } else {
             // TodoItem이 전달X
             title = "새로운 Todo 추가"
             completionStatusLabel.text = "미완료"
+            memoView.text = placeholderText
+            memoView.textColor = UIColor.lightGray
         }
         
         // TextView 및 MemoView delegate 설정
         textView.delegate = self
         memoView.delegate = self
         
-        // 플레이스홀더 설정
-        memoView.text = placeholderText
-        memoView.textColor = UIColor.lightGray
-        
         // TextView 포커스 설정
         // textView.becomeFirstResponder()
     }
-    
+
+
+
     // MARK: - UITextViewDelegate
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -118,8 +127,6 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         // 이전 화면으로 이동
         navigationController?.popViewController(animated: true)
     }
-
-
 }
 
 

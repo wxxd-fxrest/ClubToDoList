@@ -33,6 +33,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="To!Do?" id="7oL-xL-XyT">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="calendar.badge.checkmark" catalog="system" id="KkF-4l-Cib"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="zIB-DZ-0gC">
                             <connections>
                                 <action selector="iconButtonTapped:" destination="76l-Ti-IQU" id="44U-rC-pfg"/>
@@ -41,13 +42,28 @@
                     </navigationItem>
                     <connections>
                         <outlet property="table" destination="nlM-KW-uY2" id="u8D-bl-gjF"/>
-                        <outlet property="tableView" destination="nlM-KW-uY2" id="ZD1-WG-qJO"/>
                         <segue destination="4Ek-Z9-yg0" kind="show" identifier="showDetailSegue" id="QLW-Af-x3a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ib3-Il-ZhE" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1027.536231884058" y="3.2608695652173916"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ifz-fn-WYW">
+            <objects>
+                <viewController storyboardIdentifier="CalendarViewController" id="x6y-e0-Plq" customClass="ViewController" customModule="ClubToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qi4-5T-6gk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="mnz-hl-Y4q"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="sBG-uN-qlQ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fFP-ia-vba" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2032" y="-328"/>
         </scene>
         <!--Add View Controller-->
         <scene sceneID="28r-XC-ddj">
@@ -87,7 +103,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gwp-FM-CpT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2033" y="-355"/>
+            <point key="canvasLocation" x="1028" y="770"/>
         </scene>
         <!--2024.04.29-->
         <scene sceneID="fOE-d4-Oqx">
@@ -212,6 +228,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="calendar.badge.checkmark" catalog="system" width="128" height="109"/>
         <image name="text.append" catalog="system" width="128" height="99"/>
         <image name="text.badge.checkmark" catalog="system" width="128" height="107"/>
         <namedColor name="FalseColor">

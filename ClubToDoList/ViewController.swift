@@ -33,8 +33,8 @@ struct TodoItem {
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DetailViewControllerDelegate {
     
     @IBOutlet var table: UITableView!
-    @IBOutlet weak var tableView: UITableView!
-    
+//    @IBOutlet weak var tableView: UITableView!
+
     // MARK: - Properties
     var todos: [TodoItem] = []
     var expandedSections = Set<Int>() // 펼쳐진 섹션 추적
@@ -68,7 +68,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         print("현재 투두 리스트: \(todos)")
     }
-    
     
     // MARK: - UITableViewDataSource
     
@@ -105,7 +104,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if expandedSections.contains(indexPath.section) {
             let todoItem = todosOnDate[indexPath.row]
-            cell.textLabel?.text = todoItem.title
+            // 텍스트에 가로선을 추가하기 위해 NSAttributedString을 생성
+            let attributedText = NSMutableAttributedString(string: todoItem.title)
+            if todoItem.isCompleted {
+                attributedText.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSRange(location: 0, length: attributedText.length))
+            }
+            // 셀의 텍스트에 속성 추가
+            cell.textLabel?.attributedText = attributedText
             cell.textLabel?.textColor = todoItem.isCompleted ? .gray : .black
             cell.selectionStyle = .none
             
@@ -130,6 +135,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return cell
     }
+
     
     
     // MARK: - Action / 스위치 동작 함수
@@ -232,7 +238,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         // 테이블 뷰 리로드
-        tableView.reloadData()
+        table.reloadData()
     }
     
     // MARK: - UITableViewDelegate / 섹션 UI 디자인, 헤더 제스처, 섹션 날짜 설정
@@ -294,7 +300,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             print("Memo: \(todoItem.memo ?? "")")
             
             // 테이블 뷰를 리로드하여 변경 사항을 반영
-            if let tableView = tableView {
+            if let tableView = table {
                 tableView.reloadData()
             } else {
                 print("tableView가 nil입니다.")
